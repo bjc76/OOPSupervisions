@@ -1,0 +1,124 @@
+@startuml
+skinparam linetype polyline
+
+abstract class CyberPet {
+    -name: String
+    #foodLevel: float
+    #bodyBattery: float
+    #lastUpdate: LocalTime
+    +void play(int time)
+    +void sleep(int time)
+    +void feed(int amt)
+    +void updateLevels()
+    +float getHungerRating()
+    +float getPlayRating()
+    +String getName()
+}
+
+class Dog {
+    +float getHungerRating()
+    +float getPlayRating()
+}
+class Ninja {
+    +float getHungerRating()
+    +float getPlayRating()
+}
+class Cat {
+    +float getHungerRating()
+    +float getPlayRating()
+}
+class Fish {
+    +float getHungerRating()
+    +float getPlayRating()
+}
+class Goldfish {
+    +float getHungerRating()
+}
+
+CyberPet <|-- Dog
+CyberPet <|-- Ninja
+CyberPet <|-- Cat
+CyberPet <|-- Fish
+Fish <|-- Goldfish
+
+class Owner {
+    -pets: ArrayList<CyberPet>
+    -name: String
+    -dateOfBirth: LocalTime
+    -password: String
+    + boolean AttemptLogin()
+}
+
+class PetShop {
+    -petsForSale: ArrayList<CyberPet>
+    -shopName: String
+    -petsSold: ArrayList<CyberPet>
+    +void conductSale(CyberPet pet)
+    +ArrayList<CyberPet> getPetsForSale
+}
+
+class World {
+    -owners: ArrayList<Owner>
+    -shops: ArrayList<PetShop>
+}
+
+
+class GameManager {
+    -currentPlayer: Owner
+    -world: World
+    -animalManager: AnimalTraitManager
+    +void switchPlayer(String name)
+    +void performAction(String action)
+    +void awaitUserInput()
+}
+
+CyberPet --o PetShop
+CyberPet --o Owner
+Owner --* World
+PetShop --* World
+World --* GameManager
+
+abstract class AnimalTraitManager {
+    #CyberPet getPet(String name)
+}
+
+class FoodManager {
+    +void doFood()
+}
+
+class SleepManager {
+    +void doSleep()
+}
+class PlayManager {
+    +void doPlay()
+}
+
+FoodManager --|> AnimalTraitManager
+SleepManager --|> AnimalTraitManager
+PlayManager --|> AnimalTraitManager
+AnimalTraitManager --* GameManager
+
+
+abstract class AnimalGUI {
+    -name: String
+    -selected: boolean
+    +void selectAnimal()
+    +void drawAnimal()
+}
+class GameScreen {
+    -manager: GameManager
+    -petIcons: ArrayList<AnimalGUI>
+    -actionButton1: Button
+    +void performAction()
+}
+
+AnimalGUI --* GameScreen
+GameManager --* GameScreen
+
+
+
+
+
+
+
+

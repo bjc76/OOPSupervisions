@@ -30,7 +30,7 @@ public class Game {
         if (playerManager.getCurrentPlayer().getLowestScore() != -1) {
             System.out.printf("Your lowest score is %d.\n",playerManager.getCurrentPlayer().getLowestScore());
         }
-        System.out.println("Enter difficulty");
+        System.out.println("Enter difficulty (1-3): ");
         try {
             int new_difficulty = Integer.parseInt(scanner.nextLine());
             if (new_difficulty >= 1 && new_difficulty <= 3) {
